@@ -101,3 +101,4 @@ alias tmux='tmux -2 '
 alias vi="vim -p"
 alias vim="vim -p"
 alias grep="grep -d skip"
+alias gdb="gdb --quiet"

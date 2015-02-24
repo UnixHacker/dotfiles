@@ -1,7 +1,16 @@
 
 # .gdbinit
 
-set print pretty
+set print pretty on
+set print symbol-filename on
+set print array on
+set print null-stop on
+set print sevenbit-strings on
+set print union on
+set print demangle on
+set print object on
+set print static-members off
+set print vtbl on
 
 # disable clumsy paging (use terminal scrollback buffer instead)
 set height 0
@@ -50,11 +59,13 @@ document loff
 Alias for 'set scheduler-locking off'
 end
 
+#  To print the classes in the old style, use the /r (raw) switch in the print command (i.e., print /r foo). This will
+#  print the classes as if the Python pretty-printers were not loaded
 set auto-load safe-path /
-python
-import sys
-import os
-sys.path.insert(0, '/usr/share/gcc-%s/python/' % (os.popen('gcc -dumpversion').read().strip(),))
-from libstdcxx.v6.printers import register_libstdcxx_printers
-register_libstdcxx_printers(None)
-end
+#python
+#import sys
+#import os
+#sys.path.insert(0, '/usr/share/gcc-%s/python/' % (os.popen('gcc -dumpversion').read().strip(),))
+#from libstdcxx.v6.printers import register_libstdcxx_printers
+#register_libstdcxx_printers(None)
+#end
