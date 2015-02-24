@@ -1,0 +1,36 @@
+[core]
+	pager = less -F -X
+    excludesfile = .gitignore
+
+[branch]
+    autosetupmerge = true
+
+[push]
+    default = current
+
+[color]
+    diff = auto
+    branch = auto
+    status = auto
+
+[diff]
+    renames = true
+
+[alias]
+    rgrep = !git grep
+    m = merge --no-ff
+    st = status
+    ai = add -i
+    ap = add -p
+    d = diff
+    r = remote
+    dc = diff --cached
+    ci = commit -v
+    cia = commit -v -a
+    co = checkout
+    cp = cherry-pick
+    l = log
+    ll = log -p
+    b = branch
+    reha = reset --hard
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
