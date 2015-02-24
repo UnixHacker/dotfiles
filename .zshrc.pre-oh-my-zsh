@@ -1,0 +1,72 @@
+export PS1='[%m@%~]%# '
+
+alias ls='ls -Fh'
+alias cp='cp -i'
+alias mv='mv -i'
+alias rm='rm -i'
+alias grep="grep --color -d skip"
+alias vi="vim -p"
+alias vim="vim -p"
+setopt always_to_end auto_list auto_menu auto_param_keys
+setopt auto_param_slash auto_pushd auto_remove_slash
+setopt bad_pattern complete_in_word list_types
+setopt EXTENDED_GLOB
+setopt no_beep
+setopt AUTO_CD
+HISTSIZE=200
+
+# depth of the directory history
+DIRSTACKSIZE=30
+# simply type the directory name; zsh adds the 'cd' command
+setopt AUTO_CD
+# automatic pushd
+setopt AUTO_PUSHD
+# exchange meaning of + and -
+setopt PUSHD_MINUS
+# don't tell me about automatic pushd
+setopt PUSHD_SILENT
+# use $HOME when no arguments specified
+setopt PUSHD_TO_HOME
+# ignore duplicates
+setopt PUSHD_IGNOREDUPS
+# now the important part
+alias -- +='pushd +0'
+alias -- -='pushd -1'
+
+# -F -- causes less to exit if it displays less than one screenful
+# -e causes less to exit the second time it hits EOF
+# -r causes less to displa raw (color) control chars
+export PAGER=less
+export LESS=" -i -S -g -R"
+#LESS=-c
+
+
+chpwd() {
+	[[ -t 1 ]] || return
+	case $TERM in
+		sun-cmd) print -Pn "\e]l%~\e\\"
+		;;
+		*xterm*|cygwin|rxvt|(dt|k|E)term) print -Pn "\e]2;[%~]%n@%m\a"
+		;;
+	esac
+}
+
+chpwd
+
+
+export EDITOR=vim
+bindkey -v
+
+bindkey "" backward-delete-char
+bindkey "" backward-delete-char
+
+case $TERM in
+	xterm*)
+	precmd () {print -Pn "\e]0;%n@%m: %~\a"}
+	;;
+esac
+
+function show_cpp_defines()
+{
+	echo | gcc -dM -E -
+}
