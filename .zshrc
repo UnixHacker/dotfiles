@@ -105,3 +105,10 @@ alias gdb="gdb --quiet"
 alias ls='ls --color=tty -h'
 unset HISTFILE
 unsetopt share_history 
+
+zstyle ':completion:*:descriptions' format '%U%B%d%b%u'
+zstyle ':completion:*:warnings' format '%BSorry, no matches for: %d%b'
+
+autoload -U promptinit
+promptinit
+export EDITOR=vim
