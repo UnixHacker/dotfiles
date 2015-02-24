@@ -10,7 +10,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
 "Plugin 'jszakmeister/vim-togglecursor'
 Plugin 'bling/vim-airline'
-Plugin 'ntpeters/vim-better-whitespace'
+"Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'Valloric/vim-operator-highlight'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'christoomey/vim-tmux-navigator'
@@ -116,6 +116,7 @@ set hlsearch
 let g:airline_theme = 'solarized'
 let g:airline_powerline_fonts = 1
 set laststatus=2
+let g:airline#extensions#whitespace#enabled=0
 " }}}
 
 
