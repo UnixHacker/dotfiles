@@ -103,3 +103,5 @@ alias vim="vim -p"
 alias grep="grep -d skip"
 alias gdb="gdb --quiet"
 alias ls='ls --color=tty -h'
+unset HISTFILE
+unsetopt share_history 
