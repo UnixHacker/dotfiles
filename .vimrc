@@ -12,6 +12,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'bling/vim-airline'
 "Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'Valloric/vim-operator-highlight'
+Plugin 'jlanzarotta/bufexplorer'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'guns/xterm-color-table.vim'
@@ -28,10 +29,11 @@ Plugin 'majutsushi/tagbar'
 Plugin 'Shougo/vimshell.vim'
 Plugin 'tpope/vim-obsession'
 Plugin 'thinca/vim-quickrun'
-Plugin 'Soares/longline.vim'
+"Plugin 'Soares/longline.vim'
 Plugin 'honza/vim-snippets'
 Plugin 'tpope/vim-markdown'
 "Plugin 'tpope/vim-sensible'
+Plugin 'mbbill/undotree'
 Plugin 'godlygeek/tabular'
 Plugin 'tpope/vim-abolish'
 Plugin 'gilligan/vim-lldb'
@@ -163,7 +165,9 @@ au FileType nerdtree cnoreabbrev <buffer> BD <nop>
 
 " CtrlP Setup {{{
 nnoremap <silent> <space> :CtrlPBuffer<cr>
+nnoremap <leader>p :CtrlPBuffer<cr>
 " }}}
+
 
 " ClangFormat Setup {{{
 let g:clang_format#style_options = {
@@ -187,14 +191,22 @@ au FileType c,cpp,objc,objcpp noremap! <silent> <buffer> <leader>f <c-o>:ClangFo
 "au BufReadPost * :GuessIndent
 " }}}
 
-" LongLine Setup {{{
-let g:longline_autohl = 1
-let g:longline_matchgroup = 'Visual'
-" }}}
-
 " Indent Guides Setup {{{
 let g:indent_guides_enable_on_vim_startup = 0
 " }}}
+
+" Undo tree Setup {{{
+nnoremap <leader>u :UndotreeToggle<cr>
+if has("persistent_undo")
+    set undodir='~/.undodir/'
+    set undofile
+endif
+" }}}
+
+" Tagbar Setup {{{
+nnoremap <leader>t :TagbarToggle<cr>
+" }}}
+
 
 
 

@@ -112,3 +112,24 @@ zstyle ':completion:*:warnings' format '%BSorry, no matches for: %d%b'
 autoload -U promptinit
 promptinit
 export EDITOR=vim
+
+
+
+# depth of the directory history
+DIRSTACKSIZE=30
+# simply type the directory name; zsh adds the 'cd' command
+setopt AUTO_CD
+# automatic pushd
+setopt AUTO_PUSHD
+# exchange meaning of + and -
+setopt PUSHD_MINUS
+# don't tell me about automatic pushd
+setopt PUSHD_SILENT
+# use $HOME when no arguments specified
+setopt PUSHD_TO_HOME
+# ignore duplicates
+setopt PUSHD_IGNOREDUPS
+# now the important part
+alias -- +='pushd +0'
+alias -- -='pushd -1'
+
