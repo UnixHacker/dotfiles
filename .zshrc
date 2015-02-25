@@ -100,7 +100,7 @@ alias tmux-attach='tmux attach '
 alias tmux='tmux -2 '
 alias vi="vim -p"
 alias vim="vim -p"
-alias grep="grep -d skip"
+alias grep="grep --color=auto -d skip"
 alias gdb="gdb --quiet"
 alias ls='ls --color=tty -h'
 unset HISTFILE

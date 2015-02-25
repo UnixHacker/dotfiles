@@ -224,3 +224,4 @@ let &t_te.="\e[5 q"
 
 nnoremap gb :bnext<cr>
 hi MatchParen cterm=bold ctermbg=none ctermfg=none
+autocmd BufEnter * silent! lcd %:p:h
