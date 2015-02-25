@@ -133,3 +133,22 @@ setopt PUSHD_IGNOREDUPS
 alias -- +='pushd +0'
 alias -- -='pushd -1'
 
+
+function fix_env
+{
+    set -g update-environment "DISPLAY SSH_ASKPASS SSH_AUTH_SOCK SSH_AGENT_PID SSH_CONNECTION WINDOWID XAUTHORITY"
+}
+
+function fix_ssh
+{
+
+    for key in DISPLAY SSH_ASKPASS SSH_AUTH_SOCK SSH_AGENT_PID SSH_CONNECTION WINDOWID XAUTHORITY;
+    do
+        if (tmux show-environment | grep "^${key}" > /dev/null); 
+        then
+            value=`tmux show-environment | grep "^${key}" | sed -e "s/^[A-Z_]*=//"`
+            export ${key}="${value}"
+        fi
+    done
+
+}
