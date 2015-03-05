@@ -152,3 +152,15 @@ function fix_ssh
     done
 
 }
+# 3gig core file
+ulimit -c $(((3*1024*1024*1024) / 4096)) 
+
+function dug
+{
+    du -h $* | egrep "^[0-9]+G" | sort -n
+}
+
+function duh
+{
+    du -h  $* | egrep "^[0-9]+H" | sort -n
+}

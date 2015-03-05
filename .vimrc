@@ -6,6 +6,7 @@ set t_Co=256
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
+"Plugin 'chrisbra/csv.vim'
 Plugin 'gmarik/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
 "Plugin 'jszakmeister/vim-togglecursor'
@@ -27,6 +28,7 @@ Plugin 'davidhalter/jedi-vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'majutsushi/tagbar'
 Plugin 'Shougo/vimshell.vim'
+"Plugin 'jalcine/cmake.vim'
 Plugin 'tpope/vim-obsession'
 Plugin 'thinca/vim-quickrun'
 "Plugin 'Soares/longline.vim'
@@ -34,13 +36,14 @@ Plugin 'honza/vim-snippets'
 Plugin 'tpope/vim-markdown'
 "Plugin 'tpope/vim-sensible'
 Plugin 'mbbill/undotree'
-Plugin 'godlygeek/tabular'
 Plugin 'tpope/vim-abolish'
 Plugin 'gilligan/vim-lldb'
 Plugin 'ogier/guessindent'
 Plugin 'SirVer/ultisnips'
 Plugin 'vim-jp/cpp-vim'
 Plugin 'kien/ctrlp.vim'
+Plugin 'bruno-/vim-man.git'
+Plugin 'godlygeek/tabular'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -146,6 +149,7 @@ hi YcmErrorSection term=reverse cterm=reverse gui=reverse
 
 " Ultisnips Setup {{{
 let g:UltiSnipsExpandTrigger = '<c-a>'
+let g:UltiSnipsSnippetsDir = "~/.dotfiles/snips"
 " }}}
 
 " NERDTree Setup {{{
@@ -156,7 +160,7 @@ let NERDTreeShowBookmarks=1
 let NERDTreeHightlightCursorline=1
 
 " Map NERDTreeToggle to convenient key
-nnoremap <silent> <c-n> :NERDTreeToggle<cr>
+"nnoremap <silent> <c-n> :NERDTreeToggle<cr>
 nnoremap <leader>n :NERDTreeToggle<CR>
 
 " Prevent :bd inside NERDTree buffer
@@ -166,7 +170,7 @@ au FileType nerdtree cnoreabbrev <buffer> BD <nop>
 " }}}
 
 " CtrlP Setup {{{
-nnoremap <silent> <space> :CtrlPBuffer<cr>
+"nnoremap <silent> <space> :CtrlPBuffer<cr>
 nnoremap <leader>p :CtrlPBuffer<cr>
 " }}}
 
@@ -209,6 +213,22 @@ endif
 nnoremap <leader>t :TagbarToggle<cr>
 " }}}
 
+" Cmake Setup {{{
+"let g:cmake_build_dirs = [ "build", "debug", "release" ]
+"let g:cmake_build_shared_libs = 0
+"let g:gmake_install_prefix = "$HOME/cmake_install"
+" }}}
+
+" vim-man Setup {{{
+map <leader>k <Plug>(Man)
+map K <Plug>(Man)
+" }}}
+
+
+
+
+nnoremap <leader>q :cnext<cr>
+nnoremap <leader>w :cprev<cr>
 
 
 
@@ -225,3 +245,8 @@ let &t_te.="\e[5 q"
 nnoremap gb :bnext<cr>
 hi MatchParen cterm=bold ctermbg=none ctermfg=none
 autocmd BufEnter * silent! lcd %:p:h
+
+
+
+set makeprg=build
+
