@@ -1,0 +1,60 @@
+Command Line   : install gcc
+Command Line   : install gdb
+Command Line   : install gcc-c++
+Command Line   : install zsh
+Command Line   : install man-pages libstdc++-docs
+Command Line   : update vi
+Command Line   : install vim-enhanced
+Command Line   : install screen rsync
+Command Line   : install git
+Command Line   : install wget
+Command Line   : localinstall --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-20.noarch.rpm
+Command Line   : localinstall --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-20.noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-20.noarch.rpm
+Command Line   : install HandBrake-gui HandBrake-cli
+Command Line   : update
+Command Line   : install nfs-utils
+Command Line   : install strongswan
+Command Line   : install tripwire
+Command Line   : install clang lldb
+Command Line   : install msr-tools
+Command Line   : install kernel-tools
+Command Line   : install cmake
+Command Line   : install strace
+Command Line   : install indent
+Command Line   : install kernel-headers
+Command Line   : install perf
+Command Line   : install valgrind
+Command Line   : glibc-2.18-12.fc20.x86_64 libgcc-4.8.3-1.fc20.x86_64 libstdc++-4.8.3-1.fc20.x86_64
+Command Line   : install dstat
+Command Line   : install ctags
+Command Line   : install tmux
+Command Line   : install lldb
+Command Line   : install python
+Command Line   : install python-devel
+Command Line   : install cmake gcc-c++
+Command Line   : update gcc-base-debuginfo
+Command Line   : install gitk
+Command Line   : install kcachegrind
+Command Line   : install xclock
+Command Line   : install nmap
+Command Line   : install graphviz
+Command Line   : install yum-utils
+Command Line   : install clang-analyzer
+Command Line   : install dwarves
+Command Line   : install elfutils
+Command Line   : install elfutils-devel
+Command Line   : install zlib-devel
+Command Line   : install svn
+Command Line   : install install java
+Command Line   : install java-1.7.0-openjdk-devel.x86_64
+Command Line   : install tigervnc-server
+Command Line   : install autoconf
+Command Line   : install automake
+Command Line   : install libtool
+Command Line   : install gtest gtest-devel
+Command Line   : install boost-devel
+Command Line   : install ninja
+Command Line   : install ninja-build
+Command Line   : install ipython
+Command Line   : install iwyu
+Command Line   : install install the_silver_searcher
