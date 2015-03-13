@@ -5,5 +5,5 @@
 
 --sort=yes
 --c++-kinds=+p
---fields=+iaS
+--fields=+iaSK
 --extra=+q

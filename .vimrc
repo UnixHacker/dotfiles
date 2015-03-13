@@ -44,6 +44,10 @@ Plugin 'vim-jp/cpp-vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'bruno-/vim-man.git'
 Plugin 'godlygeek/tabular'
+Plugin 'szw/vim-ctrlspace'
+
+" Color schemes
+Plugin 'tomasr/molokai.git'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -53,7 +57,7 @@ filetype plugin indent on    " required
 
 " Map <C-L> (redraw screen) to also turn off search highlighting until the
 " next search
-nnoremap <C-L> :nohl<CR><C-L>
+"nnoremap <C-L> :nohl<CR><C-L>
 
 
 "------------------------------------------------------------
@@ -118,7 +122,8 @@ set hlsearch
 
 
 " Airline Setup {{{
-let g:airline_theme = 'solarized'
+"let g:airline_theme = 'solarized'
+let g:airline_theme = 'luna'
 let g:airline_powerline_fonts = 1
 set laststatus=2
 let g:airline#extensions#whitespace#enabled=0
@@ -176,18 +181,23 @@ nnoremap <leader>p :CtrlPBuffer<cr>
 
 
 " ClangFormat Setup {{{
+let g:clang_format#code_style = "Google"
+
+"Not supported in current clang-format version
+"\ "AllowShortLoopsOnASingleLine": "false",
+"\ "AllowShortBlocksOnASingleLine" : "false",
+"\ "AllowShortFunctionsOnASingleLine": "None",
+"\ "AllowShortIfStatementsOnASingleLine": "false",
 let g:clang_format#style_options = {
             \ "AccessModifierOffset": -4,
-            \ "AllowShortLoopsOnASingleLine": "false",
-            \ "AllowShortBlocksOnASingleLine" : "false",
-            \ "AllowShortFunctionsOnASingleLine": "None",
-            \ "AllowShortIfStatementsOnASingleLine": "false",
             \ "AlwaysBreakTemplateDeclarations": "true",
             \ "DerivePointerBinding": "false",
             \ "PointerBindsToType": "false",
             \ "BinPackParameters" : "false",
             \ "ColumnLimit": 120,
             \ "TabWidth": 4,
+            \ "IndentCaseLabels": "false",
+            \ "BreakBeforeBraces": "Allman",
             \ "Standard": "C++11" }
 au FileType c,cpp,objc,objcpp noremap  <silent> <buffer> <leader>f :ClangFormat<cr>
 au FileType c,cpp,objc,objcpp noremap! <silent> <buffer> <leader>f <c-o>:ClangFormat<cr>
@@ -224,6 +234,14 @@ map <leader>k <Plug>(Man)
 map K <Plug>(Man)
 " }}}
 
+" BufExplorer Setup {{{
+let g:bufExplorerFindActive=0 
+" }}}
+
+" CtrlSpace Setup {{{
+nnoremap <leader><space> :CtrlSpace<cr>
+" }}}
+
 
 
 
@@ -243,10 +261,13 @@ let &t_EI.="\e[0 q"
 let &t_te.="\e[5 q"
 
 nnoremap gb :bnext<cr>
-hi MatchParen cterm=bold ctermbg=none ctermfg=none
+hi MatchParen cterm=underline ctermbg=none ctermfg=none
 autocmd BufEnter * silent! lcd %:p:h
 
 
 
 set makeprg=build
+
+"colorscheme molokai
+
 

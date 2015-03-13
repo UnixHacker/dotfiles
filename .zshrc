@@ -49,7 +49,7 @@ plugins=(common-aliases fasd git gitfast git-extras sudo vi-mode web-search yum)
 
 # User configuration
 
-export PATH="/usr/local/bin:/usr/bin:/home/priley/local/bin:/usr/local/sbin:/usr/sbin"
+export PATH="/home/priley/local/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -157,10 +157,12 @@ ulimit -c $(((3*1024*1024*1024) / 4096))
 
 function dug
 {
-    du -h $* | egrep "^[0-9]+G" | sort -n
+    du -h $* | egrep "^[0-9.]+G" | sort -n
 }
 
-function duh
+function dum
 {
-    du -h  $* | egrep "^[0-9]+H" | sort -n
+    du -h  $* | egrep "^[0-9.]+M" | sort -n
 }
+export PROMPT="${ret_status}%m:%{$fg_bold[green]%}%p %{$fg[cyan]%}%c %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%} % %{$reset_color%}"
+
