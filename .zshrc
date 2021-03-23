@@ -1,120 +1,48 @@
-# Path to your oh-my-zsh installation.
-export ZSH=/home/priley/.oh-my-zsh
-
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-ZSH_THEME="robbyrussell"
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(common-aliases fasd git gitfast git-extras sudo vi-mode web-search yum)
-
-# User configuration
-
-export PATH="/home/priley/local/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin"
-# export MANPATH="/usr/local/man:$MANPATH"
-
-source $ZSH/oh-my-zsh.sh
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
 #
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+# .zshrc is sourced in interactive shells.
+# It should contain commands to set up aliases,
+# functions, options, key bindings, etc.
+#
+
+ZSH_THEME=robbyrussell
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# load zgen
+source "${HOME}/.zgen/zgen.zsh"
+# if the init script doesn't exist
+if ! zgen saved; then
+    echo "Creating a zgen save"
+
+	# specify plugins here
+    # Turn off zsh prompt for update
+    DISABLE_AUTO_UPDATE=true
+	zgen oh-my-zsh
+	zgen oh-my-zsh plugins/ssh-agent
+	zgen oh-my-zsh plugins/systemd
+	zgen load zsh-users/zsh-completions src
+
+	zgen load junegunn/fzf shell/completion.zsh
+	#zgen load junegunn/fzf shell/key-bindings.zsh
+
+	# generate the init script from plugins above
+	zgen save
+fi
+
+
 export PAGER=less
-#export LESS=" -i -S -g -R"
 export LESS="-F -R -S -X"
-#LESS=-c
+
+bindkey -v
+bindkey "^H" backward-delete-char
+bindkey "^?" backward-delete-char
 
 
-
-#bindkey "" backward-delete-char
-#bindkey "" backward-delete-char
-
-function git_prompt_info() {
-  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-  echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}${ZSH_THEME_GIT_PROMPT_CLEAN}${ZSH_THEME_GIT_PROMPT_SUFFIX}"
-}
-
-zmodload zsh/mathfunc
-
-alias tmux-list='tmux -2 list-sessions'
-alias tmux-attach='tmux attach '
-alias tmux='tmux -2 '
 alias vi="vim -p"
 alias vim="vim -p"
 alias grep="grep --color=auto -d skip"
 alias gdb="gdb --quiet"
 alias ls='ls --color=tty -h'
-unset HISTFILE
-unsetopt share_history 
-
-zstyle ':completion:*:descriptions' format '%U%B%d%b%u'
-zstyle ':completion:*:warnings' format '%BSorry, no matches for: %d%b'
-
-autoload -U promptinit
-promptinit
 export EDITOR=vim
-
-
-
 # depth of the directory history
 DIRSTACKSIZE=30
 # simply type the directory name; zsh adds the 'cd' command
@@ -133,36 +61,67 @@ setopt PUSHD_IGNOREDUPS
 alias -- +='pushd +0'
 alias -- -='pushd -1'
 
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
+unsetopt BEEP
 
-function fix_env
-{
-    set -g update-environment "DISPLAY SSH_ASKPASS SSH_AUTH_SOCK SSH_AGENT_PID SSH_CONNECTION WINDOWID XAUTHORITY"
+
+unset HISTFILE
+unsetopt share_history
+bindkey -v
+HISTSIZE=10000
+if (( ! EUID )); then
+    HISTFILE=~/.zsh_history_root
+else
+    HISTFILE=~/.zsh_history
+fi
+SAVEHIST=1000
+set inc_append_history
+set hist_save_no_dups
+set HIST_IGNORE_DUPS
+
+function git_prompt_info() {
+  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+  echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}${ZSH_THEME_GIT_PROMPT_CLEAN}${ZSH_THEME_GIT_PROMPT_SUFFIX}"
 }
 
-function fix_ssh
-{
-
-    for key in DISPLAY SSH_ASKPASS SSH_AUTH_SOCK SSH_AGENT_PID SSH_CONNECTION WINDOWID XAUTHORITY;
-    do
-        if (tmux show-environment | grep "^${key}" > /dev/null); 
-        then
-            value=`tmux show-environment | grep "^${key}" | sed -e "s/^[A-Z_]*=//"`
-            export ${key}="${value}"
-        fi
-    done
-
-}
-# 3gig core file
-ulimit -c $(((3*1024*1024*1024) / 4096)) 
-
-function dug
-{
-    du -h $* | egrep "^[0-9.]+G" | sort -n
-}
-
-function dum
-{
-    du -h  $* | egrep "^[0-9.]+M" | sort -n
-}
 export PROMPT="${ret_status}%m:%{$fg_bold[green]%}%p %{$fg[cyan]%}%c %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%} % %{$reset_color%}"
+PROMPT="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )"
+PROMPT+='${ret_status}%n@%m: %{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)'
+export PROMPT
 
+function path_prepend ()
+{
+    PATH=${PATH//":$1"/} #delete any instances in the middle or at the end
+    PATH=${PATH//"$1:"/} #delete any instances at the beginning
+    export PATH="$1:$PATH" #prepend to beginning
+}
+
+
+path_prepend "/opt/tanius/bin"
+path_prepend "/home/paul/local/bin"
+
+
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/opt/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+
+function dstat
+{
+    /usr/bin/python3 /usr/bin/dstat
+}

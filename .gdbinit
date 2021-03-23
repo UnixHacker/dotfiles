@@ -1,4 +1,5 @@
 
+# This file is ansible managed and will be overwritten
 # .gdbinit
 
 set print pretty on
@@ -11,6 +12,7 @@ set print demangle on
 set print object on
 set print static-members off
 set print vtbl on
+set pagination off
 
 # disable clumsy paging (use terminal scrollback buffer instead)
 set height 0
@@ -69,3 +71,5 @@ set auto-load safe-path /
 #from libstdcxx.v6.printers import register_libstdcxx_printers
 #register_libstdcxx_printers(None)
 #end
+set breakpoint pending on
+#set style enabled off

@@ -1,5 +1,5 @@
 [core]
-	pager = less -F -X
+    pager = less -F -X
     excludesfile = .gitignore
 
 [branch]
@@ -15,14 +15,17 @@
 
 [diff]
     renames = true
+	wsErrorHighlight = all
 
 [alias]
     rgrep = !git grep
     m = merge --no-ff
-    st = status
+    st = status --ignore-submodules
+    status = status --ignore-submodules
+    statusv = status --ignore-submodules=none
     ai = add -i
     ap = add -p
-    d = diff
+    d = diff --ignore-submodules
     r = remote
     dc = diff --cached
     ci = commit -v
@@ -33,4 +36,37 @@
     ll = log -p
     b = branch
     reha = reset --hard
-    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+    # %h short commit hash
+    # %d ref names
+    # %s subject
+    # %cn committer name
+    # %cr committer date
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%an %ar)%Creset' --abbrev-commit
+    lga = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%an %ar)%Creset' --abbrev-commit
+    lgad = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%an %ai)%Creset' --abbrev-commit
+    addallnw=!bash -c 'git diff -U0 -w --no-color | git apply --cached --ignore-whitespace --unidiff-zero -'
+    addnw=!bash -c 'git diff -U0 -w --no-color "$0" | git apply --cached --ignore-whitespace --unidiff-zero -'
+    lastmonth=!bash -c 'git summary $(git log -1 --before=@{last.year} --format=%H)..'
+
+
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+[color "diff"]
+	whitespace = red reverse
+[pull]
+	rebase = true
+[rebase]
+	autoStash = true
+[rerere]
+	enabled = true
+
+[lfs]
+    concurrenttransfers = 100
+[remote "origin"]
+	prune = true
+
+[diff]
+    ignoreSubmodules = all
